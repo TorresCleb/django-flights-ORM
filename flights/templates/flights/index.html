@@ -1,8 +1,7 @@
 {% extends "flights/layout.html" %}
 
-
 {% block body %}
-    <h1>flights</h1>
+    <h1>Voos</h1>
     <ul>
         {% for flight in flights %}
             <li> {{flight.id}} : {{flight.origin}} para {{flight.destination}}</li>
