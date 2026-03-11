@@ -8,4 +8,33 @@
         <li>Destino: {{ flight.destination}}</li>
         <li>Duração: {{ flight.duration}} minutos </li>
     </ul>
+
+    <ul>
+
+    <h2> Passageiros</h2>
+
+    {%for passenger in passengers %}
+        <li>{{ passenger }}</li>
+    {%empty%}
+        <li>Não há passageiros</li>
+    {%endfor%}
+    </ul>
+
+    <h2>Adicionar Passageiros</h2>
+
+    <form action="{%url 'book' flight.id %}" method="post">
+        {% csrf_token %}
+            
+        <select name="passenger">
+            {% for passengers in no_passengers %}
+                <option value="{{ passenger.id }}">{{ passengers }}</option>
+            {% endfor%}
+        </select>
+        <input type="submit">
+    </form>
+
+    <ul>
+        <a href="{% url 'index' %}"> Voltar para a lista de voos</a>
+    </ul>
+
 {% endblock%}
