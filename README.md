@@ -14,6 +14,7 @@ O sistema simula o gerenciamento de uma companhia aérea, permitindo cadastrar a
 - **Django Migrations:** Entendimento do fluxo de `makemigrations` e `migrate`, além de resolução de erros de integridade.
 - **Django Shell:** Manipulação e consulta de dados diretamente via linha de comando.
 - **Templates:** Uso de herança de templates com `{% extends %}` e `{% block %}` para criar um layout reutilizável.
+- **Componentes Reutilizáveis:** Implementação de um sistema de "Cards" para listagem de voos, proporcionando uma navegação intuitiva e moderna.
 
 ## 🛠️ Tecnologias Utilizadas
 
