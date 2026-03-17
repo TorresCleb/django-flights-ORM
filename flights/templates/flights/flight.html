@@ -1,40 +1,147 @@
 {% extends "flights/layout.html" %}
 
 {% block body %}
-    <h1> Voo {{ flight.id}} / {{ flight.destination}}</h1>
 
-    <ul>
-        <li>Origem: {{ flight.origin }} </li>
-        <li>Destino: {{ flight.destination}}</li>
-        <li>Duração: {{ flight.duration}} minutos </li>
+<style>
+    .flight-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .header-flight {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        color: #2563eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        background: #f8fafc;
+        padding: 15px;
+        border-radius: 8px;
+        list-style: none;
+    }
+
+    .info-item strong {
+        display: block;
+        color: #64748b;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+
+    .passenger-section {
+        margin-top: 30px;
+    }
+
+    .passenger-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .passenger-list li {
+        padding: 10px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+    }
+
+    .passenger-list li::before {
+        content: "👤";
+        margin-right: 10px;
+    }
+
+    /* Estilização do Formulário */
+    .booking-form {
+        background: #f1f5f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+
+    input[type="submit"] {
+        background-color: #059669;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #047857;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #64748b;
+        font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+        color: #2563eb;
+    }
+</style>
+
+<div class="flight-container">
+    <div class="header-flight">
+        <h1>Voo #{{ flight.id }}</h1>
+        <span>Destino: {{ flight.destination }}</span>
+    </div>
+
+    <ul class="info-grid">
+        <li class="info-item"><strong>Origem</strong> {{ flight.origin }}</li>
+        <li class="info-item"><strong>Destino</strong> {{ flight.destination }}</li>
+        <li class="info-item"><strong>Duração</strong> {{ flight.duration }} min</li>
     </ul>
 
-    <ul>
+    <div class="passenger-section">
+        <h2>Passageiros</h2>
+        <ul class="passenger-list">
+            {% for passenger in passengers %}
+                <li>{{ passenger }}</li>
+            {% empty %}
+                <li style="color: #94a3b8;">Não há passageiros confirmados.</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    <h2> Passageiros</h2>
+    <div class="booking-form">
+        <h3>Adicionar Passageiro</h3>
+        <form action="{% url 'flights:book' flight.id %}" method="post">
+            {% csrf_token %}
+            <select name="passenger">
+                {% for passenger in no_passengers %}
+                    <option value="{{ passenger.id }}">{{ passenger }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Confirmar Reserva">
+        </form>
+    </div>
 
-    {%for passenger in passengers %}
-        <li>{{ passenger }}</li>
-    {%empty%}
-        <li>Não há passageiros</li>
-    {%endfor%}
-    </ul>
+        <a href="{% url 'flights:index' %}" class="back-link">← Voltar para a lista de voos</a></div>
 
-    <h2>Adicionar Passageiros</h2>
-
-    <form action="{%url 'book' flight.id %}" method="post">
-        {% csrf_token %}
-            
-        <select name="passenger">
-            {% for passenger in no_passengers %}
-                <option value="{{ passenger.id }}">{{ passenger }}</option>
-            {% endfor%}
-        </select>
-        <input type="submit">
-    </form>
-
-    <ul>
-        <a href="{% url 'index' %}"> Voltar para a lista de voos</a>
-    </ul>
-
-{% endblock%}
+{% endblock %}

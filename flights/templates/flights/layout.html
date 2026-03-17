@@ -1,14 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flights</title>
-</head>
-<body>
-    {% block body%}
-    
-    {% endblock%}
-    
-</body>
-</html>
+<nav
+    style="background: #2563eb; color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+
+    <div style="font-weight: bold; font-size: 1.2rem;">
+        <a href="{% url 'flights:index' %}" style="color: white; text-decoration: none;">✈️ Fly-Django</a>
+    </div>
+
+    <div>
+        {% if user.is_authenticated %}
+        <span style="margin-right: 15px;">Bem-vindo, <strong>{{ user.username }}</strong></span>
+        <a href="{% url 'logout' %}"
+            style="background: #ef4444; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 0.9rem;">Sair</a>
+        {% else %}
+        <a href="{% url 'login' %}"
+            style="background: #059669; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 0.9rem;">Entrar</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="main-content">
+    {% block body %}
+    {% endblock %}
+</div>

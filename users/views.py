@@ -12,16 +12,18 @@ def index(request):
     return render(request, "users/user.html")
     
 def login_view(request):
-    if request.method == "POST":
+    if request.method == "POST" :
         username = request.POST["username"]
         password = request.POST["password"] 
         user = authenticate(request, username=username, password=password)
-    if user is not None:
+
+        if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("flights:index"))
     else:
         return render(request,"users/login.html",{
-            "message" : "Credenciais inválidas!"
+            "message" : "Credenciais inválidas",
+            "message1" : "Insira as credenciais"
         })
 
 def logout_view(request):

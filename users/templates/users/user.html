@@ -6,6 +6,8 @@
     <ul style="margin: auto;">
         <li>Nome: {{ request.user.username}}</li>
         <li>Email: {{ request.user.email }}</li>
+
+        
     </ul>
 
     <a style="border-style:none; color: rgb(147, 6, 6);" href="{% url 'logout' %}"> Sair </a>

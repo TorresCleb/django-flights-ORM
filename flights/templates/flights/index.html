@@ -1,13 +1,79 @@
 {% extends "flights/layout.html" %}
 
 {% block body %}
-    <h1>Voos</h1>
-    <ul>
+<style>
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+        color: #2563eb;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .flight-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .flight-item {
+        background: white;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+        border: 1px solid #e2e8f0;
+    }
+
+    .flight-item:hover {
+        transform: translateX(5px);
+        border-color: #2563eb;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    }
+
+    .flight-link {
+        display: block;
+        padding: 15px 20px;
+        text-decoration: none;
+        color: #1e293b;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .flight-id {
+        background: #f1f5f9;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-right: 10px;
+    }
+
+    .arrow {
+        color: #2563eb;
+    }
+</style>
+
+<div class="container">
+    <h1>Voos Disponíveis</h1>
+    <ul class="flight-list">
         {% for flight in flights %}
-            <li>
-                <a href="{% url 'flight' flight.id %}">
-                 {{flight.id}} : {{flight.origin}} para {{flight.destination}}
+            <li class="flight-item">
+                <a class="flight-link" href="{% url 'flights:flight' flight.id %}">
+                    <span>
+                        <span class="flight-id">#{{ flight.id }}</span>
+                        <strong>{{ flight.origin }}</strong> → <strong>{{ flight.destination }}</strong>
+                    </span>
+                    <span class="arrow">➔</span>
+                </a>
             </li>
-        {% endfor%}
+        {% endfor %}
     </ul>
+</div>
 {% endblock %}
