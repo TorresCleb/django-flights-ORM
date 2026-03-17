@@ -1,4 +1,5 @@
-# ✈️ Django Flight - CS50W
+# ✈️ Sistema de gerenciamento de voos
+### Projeto desenvolvido para o curso CS50's Web Programming with Python and JavaScript (Harvard University)
 
 Este projeto foi desenvolvido como parte do meu aprendizado no curso **CS50's Web Programming with Python and JavaScript** da **Harvard University**. 
 
